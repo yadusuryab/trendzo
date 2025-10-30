@@ -57,10 +57,10 @@ const ProductReviewSection = ({ productId }: { productId: string }) => {
   }, [productId]);
 
   const handleSubmit = async () => {
-    const result = reviewSchema.safeParse(formData);
+    const result : any = reviewSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
-      result.error.errors.forEach((e) => {
+      result.error?.errors.forEach((e:any) => {
         fieldErrors[e.path[0]] = e.message;
       });
       setErrors(fieldErrors);
