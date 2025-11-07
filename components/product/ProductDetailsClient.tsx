@@ -185,7 +185,14 @@ const ProductDetailsClient = ({ product }: { product: any }) => {
 
       {/* Action Buttons */}
       <div className="mt-8 space-y-4">
-       <AddToCartButton product={product} showBuyNow/>
+      <AddToCartButton 
+    product={product} 
+    selectedSize={selectedSize}
+    selectedColor={selectedColor}
+    hasSizes={availableSizes.length > 0}
+    hasColors={availableColors.length > 0}
+    showBuyNow
+  />
       
       </div>
 

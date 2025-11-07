@@ -54,83 +54,86 @@ const AddToCartButton = ({
     const exists = cartItems.some(
       (item: CartItem) =>
         item._id === product._id &&
-        (hasSizes ? item.size === selectedSize : true) &&
-        (hasColors ? item.color === selectedColor : true)
+        item.size === selectedSize && // Direct comparison
+        item.color === selectedColor  // Direct comparison
     );
     setInCart(exists);
-  }, [product._id, selectedSize, selectedColor, hasSizes, hasColors]);
+  }, [product._id, selectedSize, selectedColor]); // Remove hasSizes and hasColors from dependencies
+// In AddToCartButton component, update the addToCart function to be more robust:
 
-  const addToCart = (redirectToCart = false) => {
-    if (hasSizes && !selectedSize) {
-      toast.warning("Please select a size before adding to cart.");
-      return false;
-    }
-    
-    if (hasColors && !selectedColor) {
-      toast.warning("Please select a color before adding to cart.");
-      return false;
-    }
-    
-    if (product.quantity <= 0) {
-      toast.error("This product is out of stock.");
-      return false;
-    }
+const addToCart = (redirectToCart = false) => {
+  // Check if sizes are required and selected
+  if (hasSizes && !selectedSize) {
+    toast.warning("Please select a size before adding to cart.");
+    return false;
+  }
+  
+  // Check if colors are required and selected
+  if (hasColors && !selectedColor) {
+    toast.warning("Please select a color before adding to cart.");
+    return false;
+  }
+  
+  if (product.quantity <= 0) {
+    toast.error("This product is out of stock.");
+    return false;
+  }
 
-    redirectToCart ? setIsBuyNowLoading(true) : setIsLoading(true);
+  redirectToCart ? setIsBuyNowLoading(true) : setIsLoading(true);
 
-    try {
-      const cartItems: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+  try {
+    const cartItems: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
-      const existingIndex = cartItems.findIndex(
-        (item) =>
-          item._id === product._id &&
-          (hasSizes ? item.size === selectedSize : true) &&
-          (hasColors ? item.color === selectedColor : true)
-      );
+    const existingIndex = cartItems.findIndex(
+      (item) =>
+        item._id === product._id &&
+        item.size === selectedSize && // Always compare sizes
+        item.color === selectedColor  // Always compare colors
+    );
 
-      if (existingIndex >= 0) {
-        if (cartItems[existingIndex].cartQty >= cartItems[existingIndex].maxQty) {
-          toast.error(`Maximum quantity (${cartItems[existingIndex].maxQty}) reached for this item.`);
-          return false;
-        }
-        
-        cartItems[existingIndex].cartQty += 1;
-        if (!redirectToCart) {
-          toast.success("Quantity increased in cart.");
-        }
-      } else {
-        const newProduct: CartItem = {
-          ...product,
-          image: product.image || product.images?.[0]?.url || "",
-          size: hasSizes ? selectedSize : null,
-          color: hasColors ? selectedColor : null,
-          cartQty: 1,
-          maxQty: product.quantity,
-        };
-
-        cartItems.push(newProduct);
-        if (!redirectToCart) {
-          toast.success("Product added to cart!");
-        }
+    if (existingIndex >= 0) {
+      if (cartItems[existingIndex].cartQty >= cartItems[existingIndex].maxQty) {
+        toast.error(`Maximum quantity (${cartItems[existingIndex].maxQty}) reached for this item.`);
+        return false;
       }
-
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-      setInCart(true);
-      window.dispatchEvent(new Event("cart-updated"));
       
-      return true;
-    } catch (error) {
-      toast.error("Failed to add product to cart.");
-      console.error("Add to cart error:", error);
-      return false;
-    } finally {
-      if (redirectToCart) {
-        setIsBuyNowLoading(false);
-      } else {
-        setIsLoading(false);
+      cartItems[existingIndex].cartQty += 1;
+      if (!redirectToCart) {
+        toast.success("Quantity increased in cart.");
+      }
+    } else {
+      const newProduct: CartItem = {
+        ...product,
+        image: product.image || product.images?.[0]?.url || "",
+        size: selectedSize || null, // Always include size if selected
+        color: selectedColor || null, // Always include color if selected
+        cartQty: 1,
+        maxQty: product.quantity,
+      };
+
+      cartItems.push(newProduct);
+      if (!redirectToCart) {
+        toast.success("Product added to cart!");
       }
     }
-  };
+
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    setInCart(true);
+    window.dispatchEvent(new Event("cart-updated"));
+    
+    return true;
+  } catch (error) {
+    toast.error("Failed to add product to cart.");
+    console.error("Add to cart error:", error);
+    return false;
+  } finally {
+    if (redirectToCart) {
+      setIsBuyNowLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  }
+};
 
   const handleAddToCart = () => {
     addToCart(false);
