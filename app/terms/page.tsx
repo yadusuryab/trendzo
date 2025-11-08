@@ -12,7 +12,7 @@ const TermsAndConditions = () => {
       </h2>
 
       <section className="mb-6">
-        <h3 className="text-xl font-semibold">RETURN & REPLACEMENT POLICY</h3>
+        <h3 className="text-2xl font-semibold">RETURN & REPLACEMENT POLICY</h3>
         <ul className="list-disc ml-6 mt-2">
           <li>
             You can return the product for a replacement if the product is the
@@ -32,7 +32,7 @@ const TermsAndConditions = () => {
       </section>
 
       <section className="mb-6">
-        <h3 className="text-xl font-semibold">UNBOXING VIDEO REQUIREMENTS</h3>
+        <h3 className="text-2xl font-semibold">UNBOXING VIDEO REQUIREMENTS</h3>
         <ul className="list-disc ml-6 mt-2">
           <li>
             A 360-degree video of unboxing the parcel is mandatory for any
@@ -53,7 +53,7 @@ const TermsAndConditions = () => {
       </section>
 
       <section className="mb-6">
-        <h3 className="text-xl font-semibold">IMPORTANT NOTES</h3>
+        <h3 className="text-2xl font-semibold">IMPORTANT NOTES</h3>
         <ul className="list-disc ml-6 mt-2">
           <li>
             Slight color variation or light/dark differences due to digital
@@ -68,7 +68,7 @@ const TermsAndConditions = () => {
       </section>
 
       <section className="mb-6">
-        <h3 className="text-xl font-semibold">*KEEP IN MIND</h3>
+        <h3 className="text-2xl font-semibold">*KEEP IN MIND</h3>
         <ul className="list-disc ml-6 mt-2">
           <li>Cancellation is not allowed after placing the order.</li>
           <li>
@@ -81,7 +81,7 @@ const TermsAndConditions = () => {
       </section>
 
       <section className="mb-6">
-        <h3 className="text-xl font-semibold">SHIPPING & DELIVERY </h3>
+        <h3 className="text-2xl font-semibold">SHIPPING & DELIVERY </h3>
         <ul className="list-disc ml-6 mt-2">
           <li>We are not the owners of any courier services.</li>
           <li>
@@ -99,7 +99,7 @@ const TermsAndConditions = () => {
       </section>
 
       <section className="mb-6">
-        <h3 className="text-xl font-semibold">SIZE REPLACEMENT CONDITIONS</h3>
+        <h3 className="text-2xl font-semibold">SIZE REPLACEMENT CONDITIONS</h3>
         <p className="mt-2">
           If you wish to replace the delivered product with the same shoes in a
           different size, it will be processed based on stock availability.

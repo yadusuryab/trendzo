@@ -199,7 +199,7 @@ useEffect(() => {
               className="fixed inset-0 z-50 bg-accent p-6 overflow-y-auto md:hidden"
             >
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold">Filters</h2>
+                <h2 className="text-2xl font-bold">Filters</h2>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -287,7 +287,7 @@ useEffect(() => {
             transition={{ delay: 0.2 }}
             className="bg-accent p-6 rounded-xl shadow-sm sticky top-4 border "
           >
-            <h3 className="font-bold text-xl mb-6">✨ Filter </h3>
+            <h3 className="font-bold text-2xl mb-6">✨ Filter </h3>
 
             {/* Price Range */}
             <div className="mb-8">

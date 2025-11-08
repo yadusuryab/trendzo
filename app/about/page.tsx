@@ -26,7 +26,7 @@ export default function AboutUsPage() {
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             THE NORTH SIDE
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-2xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
             Redefining Urban Fashion with Authenticity, Quality, and Style
           </p>
           <div className="w-24 h-1 bg-white mx-auto mb-8"></div>
@@ -40,7 +40,7 @@ export default function AboutUsPage() {
       {/* Mission & Vision Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-5xl md:text-4xl font-bold text-center text-gray-900 mb-12">
             Our Mission & Vision
           </h2>
           
@@ -65,29 +65,29 @@ export default function AboutUsPage() {
             <div className="grid md:grid-cols-2 gap-6 text-gray-600">
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span className="text-green-500 mr-3 text-2xl">✓</span>
                   <span>Premium quality fabrics sourced ethically</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span className="text-green-500 mr-3 text-2xl">✓</span>
                   <span>Attention to detail in every stitch</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span className="text-green-500 mr-3 text-2xl">✓</span>
                   <span>Customer-first approach in everything we do</span>
                 </li>
               </ul>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span className="text-green-500 mr-3 text-2xl">✓</span>
                   <span>Innovative designs that stand the test of time</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span className="text-green-500 mr-3 text-2xl">✓</span>
                   <span>Sustainable and responsible fashion practices</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span className="text-green-500 mr-3 text-2xl">✓</span>
                   <span>Affordable luxury without compromising quality</span>
                 </li>
               </ul>
@@ -99,28 +99,28 @@ export default function AboutUsPage() {
       {/* Values Section */}
       {/* <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
+          <h2 className="text-5xl md:text-4xl font-bold text-gray-900 mb-12">
             Our Core Values
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center p-6">
-              <div className="text-3xl mb-4">🌟</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Quality Craftsmanship</h3>
+              <div className="text-5xl mb-4">🌟</div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">Quality Craftsmanship</h3>
               <p className="text-gray-600">
                 Every garment is crafted with precision and attention to detail, ensuring exceptional quality that lasts.
               </p>
             </div>
             <div className="text-center p-6">
-              <div className="text-3xl mb-4">💝</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Customer Love</h3>
+              <div className="text-5xl mb-4">💝</div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">Customer Love</h3>
               <p className="text-gray-600">
                 Building lasting relationships with our community through exceptional service and genuine care.
               </p>
             </div>
             <div className="text-center p-6">
-              <div className="text-3xl mb-4">🚀</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Innovation</h3>
+              <div className="text-5xl mb-4">🚀</div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">Innovation</h3>
               <p className="text-gray-600">
                 Constantly evolving to bring you the latest in fashion trends while maintaining our unique identity.
               </p>
@@ -132,10 +132,10 @@ export default function AboutUsPage() {
       {/* CTA Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-black text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-5xl md:text-4xl font-bold mb-6">
             Join THE NORTH SIDE Family
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Experience the difference of authentic, quality fashion crafted with passion and purpose.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

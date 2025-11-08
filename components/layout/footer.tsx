@@ -79,10 +79,10 @@ function Footer() {
       <div className="border-b border-gray-200">
         <div className="container mx-auto px-4 py-12 text-center">
           <Link href="/">
-            {/* <h2 className="font-playfair text-primary italic text-4xl md:text-5xl font-bold tracking-wide hover:opacity-80 transition-opacity">
-              THE NORTH SIDE
-            </h2> */}
-            <Brand/>
+            <h2 className="font-serif text-primary italic text-4xl md:text-5xl font-semibold tracking-wide hover:opacity-80 transition-opacity">
+              Trendzo
+            </h2>
+            {/* <Brand/> */}
           </Link>
         </div>
       </div>

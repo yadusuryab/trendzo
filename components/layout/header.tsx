@@ -306,7 +306,7 @@ function Header() {
           <div className="flex flex-col h-full">
             {/* Header */}
             <div className="flex items-center justify-between p-8 border-b border-gray-200 ">
-              <span className="uppercase font-bold text-xl tracking-widest">MENU</span>
+              <span className="uppercase font-bold text-2xl tracking-widest">MENU</span>
               <button 
                 onClick={closeMenu}
                 className="p-2 transition-all duration-300 hover:scale-110 hover:opacity-70"

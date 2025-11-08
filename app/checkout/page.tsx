@@ -216,7 +216,7 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
-      <h1 className="text-3xl font-bold text-center">Checkout</h1>
+      <h1 className="text-5xl font-bold text-center">Checkout</h1>
 
       {showPayment ? (
         <div className="space-y-6">

@@ -8,7 +8,7 @@ export default function CookiesPolicy() {
         <meta name="description" content="Learn how TRENDZO uses cookies to enhance your browsing experience." />
       </Head>
       <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-4">Cookies Policy</h1>
+        <h1 className="text-5xl font-bold mb-4">Cookies Policy</h1>
         <p>Last updated: February 21, 2025</p>
         <p>
           This Cookies Policy explains what Cookies are and how We use them. You should read this policy so You can
@@ -16,9 +16,9 @@ export default function CookiesPolicy() {
           used.
         </p>
         <h2 className="text-2xl font-semibold mt-6">Interpretation and Definitions</h2>
-        <h3 className="text-xl font-semibold mt-4">Interpretation</h3>
+        <h3 className="text-2xl font-semibold mt-4">Interpretation</h3>
         <p>The words with capitalized initials have meanings as defined below, regardless of singular or plural usage.</p>
-        <h3 className="text-xl font-semibold mt-4">Definitions</h3>
+        <h3 className="text-2xl font-semibold mt-4">Definitions</h3>
         <ul className="list-disc ml-6">
           <li>
             <strong>Company:</strong> Refers to TRENDZO ("the Company", "We", "Us", or "Our").
@@ -36,7 +36,7 @@ export default function CookiesPolicy() {
           </li>
         </ul>
         <h2 className="text-2xl font-semibold mt-6">The Use of Cookies</h2>
-        <h3 className="text-xl font-semibold mt-4">Types of Cookies We Use</h3>
+        <h3 className="text-2xl font-semibold mt-4">Types of Cookies We Use</h3>
         <ul className="list-disc ml-6">
           <li>
             <p><strong>Necessary / Essential Cookies</strong></p>
@@ -49,12 +49,12 @@ export default function CookiesPolicy() {
             <p>Purpose: Used to remember your preferences and settings, providing a better browsing experience.</p>
           </li>
         </ul>
-        <h3 className="text-xl font-semibold mt-4">Your Choices Regarding Cookies</h3>
+        <h3 className="text-2xl font-semibold mt-4">Your Choices Regarding Cookies</h3>
         <p>
           If You prefer to avoid the use of Cookies, disable them in your browser settings and delete stored Cookies. If
           You decline Cookies, some Website features may not function properly.
         </p>
-        <h3 className="text-xl font-semibold mt-4">More Information about Cookies</h3>
+        <h3 className="text-2xl font-semibold mt-4">More Information about Cookies</h3>
         <p>
           Learn more about cookies here:
           <a
@@ -67,7 +67,7 @@ export default function CookiesPolicy() {
           </a>
           .
         </p>
-        <h3 className="text-xl font-semibold mt-4">Contact Us</h3>
+        <h3 className="text-2xl font-semibold mt-4">Contact Us</h3>
         <p>
           If you have any questions about this Cookies Policy, contact us at:
           <a

@@ -133,7 +133,7 @@ const ProductDetailsClient = ({ product }: { product: any }) => {
   return (
     <div className="lg:pl-8">
       {/* Product Title */}
-      <h1 className="text-2xl md:text-3xl font-medium uppercase tracking-tight text-[#111111] mb-4">
+      <h1 className="text-2xl md:text-5xl font-medium uppercase tracking-tight text-[#111111] mb-4">
         {product.name}
       </h1>
 

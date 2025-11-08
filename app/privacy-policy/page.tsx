@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
         <meta name="description" content={`Read the privacy policy of ${process.env.NEXT_PUBLIC_APP_NAME} Store to understand how we handle your data.`} />
       </head>
       <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
+        <h1 className="text-5xl font-bold mb-4">Privacy Policy</h1>
         <p>At {process.env.NEXT_PUBLIC_APP_NAME} Store, we are dedicated to protecting your privacy and securing the personal information you provide. This Privacy Policy outlines our practices regarding the collection, use, and sharing of your data when you visit our website or make purchases.</p>
 
         <h2 className="text-2xl font-semibold mt-6">1. Information We Collect</h2>

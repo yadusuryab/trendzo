@@ -340,7 +340,7 @@ export default function AboutUsSection() {
           
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="flex-1 text-center lg:text-left">
-              <h3 className="text-3xl font-light text-white mb-4">
+              <h3 className="text-5xl font-light text-white mb-4">
                 Experience <span className="font-serif italic">Luxury</span> Timekeeping
               </h3>
               <p className="text-slate-300 text-lg font-light">
@@ -404,7 +404,7 @@ function LuxuryServiceItem({
           >
             {icon}
           </motion.div>
-          <h3 className="text-xl font-semibold text-slate-900 group-hover:text-amber-600 transition-colors duration-300">
+          <h3 className="text-2xl font-semibold text-slate-900 group-hover:text-amber-600 transition-colors duration-300">
             {title}
           </h3>
         </motion.div>

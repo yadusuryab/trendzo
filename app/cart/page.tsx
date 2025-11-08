@@ -132,7 +132,7 @@ function CartPage() {
           className="flex flex-col items-center justify-center py-12"
         >
           <ShoppingCart className="w-16 h-16 text-muted-foreground mb-4" />
-          <h2 className="text-xl font-semibold mb-2">Your cart is empty</h2>
+          <h2 className="text-2xl font-semibold mb-2">Your cart is empty</h2>
           <p className="text-muted-foreground mb-6">
             Looks like you haven't added anything to your cart yet
           </p>

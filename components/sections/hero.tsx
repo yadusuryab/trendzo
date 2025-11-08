@@ -140,7 +140,7 @@ const Hero = () => {
               {/* Content container with refined styling */}
               <div className="max-w-4xl mx-auto text-white">
                 {banner.title && (
-                  <h1 className="text-2xl lg:text-3xl font-light tracking-wide drop-shadow-2xl font-serif italic">
+                  <h1 className="text-2xl lg:text-5xl font-light tracking-wide drop-shadow-2xl font-serif italic">
                     {banner.title.split("").map((letter, index) => (
                       <span
                         key={index}
@@ -154,7 +154,7 @@ const Hero = () => {
                 )}
 
                 {banner.subtitle && (
-                  <p className="text-sm lg:text-xl font-light tracking-wider drop-shadow-lg uppercase text-gray-200 max-w-2xl mx-auto leading-relaxed mt-4">
+                  <p className="text-sm lg:text-2xl font-light tracking-wider drop-shadow-lg uppercase text-gray-200 max-w-2xl mx-auto leading-relaxed mt-4">
                     {banner.subtitle}
                   </p>
                 )}

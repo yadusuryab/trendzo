@@ -91,11 +91,11 @@ function CategorySection() {
         {/* Section Header */}
         <div className="text-start font-serif mb-3">
           <div className="inline-flex items-start gap-4 mb-2">
-            <h2 className="text-3xl italic text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+            <h2 className="text-4xl italic text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
                Collections
             </h2>
           </div>
-          <p className="text-xl italic text-foreground/60 font-light tracking-wide max-w-2xl leading-relaxed">
+          <p className="text-2xl italic text-foreground/60 font-light tracking-wide max-w-2xl leading-relaxed">
             Discover our exclusive categories, meticulously curated for the discerning individual
           </p>
         </div>
@@ -137,7 +137,7 @@ function CategorySection() {
           <p className="text-sm text-foreground/50 font-light tracking-widest uppercase mb-1">
             Exclusive Selection
           </p>
-          <p className="text-lg text-foreground/70 font-serif italic max-w-md mx-auto">
+          <p className="text-2xl text-foreground/70 font-serif italic max-w-md mx-auto">
             Each piece tells a story of craftsmanship and elegance
           </p>
         </div>
