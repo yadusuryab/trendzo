@@ -12,6 +12,8 @@ const SizeSelector = ({ sizes, selectedSize, onSizeSelect }: {
   selectedSize: string | null;
   onSizeSelect: (size: string) => void;
 }) => {
+  if (!sizes || sizes.length === 0) return null;
+
   return (
     <div className="mt-8">
       <div className="flex justify-between items-center mb-4">
@@ -43,7 +45,7 @@ const SizeSelector = ({ sizes, selectedSize, onSizeSelect }: {
   );
 };
 
-// Color selector component
+// Color selector component - updated to handle color names
 const ColorSelector = ({ colors, selectedColor, onColorSelect }: {
   colors: string[];
   selectedColor: string | null;
@@ -51,26 +53,85 @@ const ColorSelector = ({ colors, selectedColor, onColorSelect }: {
 }) => {
   if (!colors || colors.length === 0) return null;
 
+  // Common color mappings for named colors
+  const getColorValue = (colorName: string) => {
+    const colorMap: { [key: string]: string } = {
+      'black': '#000000',
+      'white': '#FFFFFF',
+      'silver': '#C0C0C0',
+      'gray': '#808080',
+      'red': '#FF0000',
+      'blue': '#0000FF',
+      'navy': '#000080',
+      'green': '#008000',
+      'olive': '#808000',
+      'yellow': '#FFFF00',
+      'gold': '#FFD700',
+      'orange': '#FFA500',
+      'pink': '#FFC0CB',
+      'purple': '#800080',
+      'brown': '#A52A2A',
+      'beige': '#F5F5DC',
+      'cream': '#FFFDD0',
+      'burgundy': '#800020',
+      'maroon': '#800000',
+      'teal': '#008080',
+      'turquoise': '#40E0D0',
+      'lavender': '#E6E6FA',
+      'rose gold': '#B76E79',
+    };
+
+    // Convert to lowercase and check for matches
+    const lowerColor = colorName.toLowerCase();
+    
+    // Check for exact matches first
+    if (colorMap[lowerColor]) {
+      return colorMap[lowerColor];
+    }
+
+    // Check for partial matches for complex color names
+    for (const [key, value] of Object.entries(colorMap)) {
+      if (lowerColor.includes(key)) {
+        return value;
+      }
+    }
+
+    // Default fallback color
+    return '#CCCCCC';
+  };
+
   return (
     <div className="mt-6">
       <label className="text-xs font-medium tracking-wider uppercase text-[#666666] mb-4 block">
         Color
       </label>
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         {colors.map((color) => (
-          <button
-            key={color}
-            onClick={() => onColorSelect(color)}
-            className={`
-              w-10 h-10 rounded-full border-2 transition-all duration-200
-              ${selectedColor === color
-                ? 'border-[#111111] scale-110'
-                : 'border-gray-300 hover:scale-105'
-              }
-            `}
-            style={{ backgroundColor: color }}
-            title={color}
-          />
+          <div key={color} className="flex flex-col items-center gap-2">
+            <button
+              onClick={() => onColorSelect(color)}
+              className={`
+                w-12 h-12 rounded-full border-2 transition-all duration-200 flex items-center justify-center
+                ${selectedColor === color
+                  ? 'border-[#111111] scale-110'
+                  : 'border-gray-300 hover:scale-105'
+                }
+              `}
+              style={{ backgroundColor: getColorValue(color) }}
+              title={color}
+            >
+              {/* Show pattern or indicator for complex colors */}
+              {color.toLowerCase().includes('dial') && (
+                <div className="w-4 h-4 rounded-full bg-blue-500 border border-white"></div>
+              )}
+              {color.toLowerCase().includes('strip') && (
+                <div className="w-3 h-6 border-l-2 border-r-2 border-white"></div>
+              )}
+            </button>
+            <span className="text-xs text-[#666666] max-w-12 text-center leading-tight">
+              {color}
+            </span>
+          </div>
         ))}
       </div>
     </div>
@@ -83,7 +144,8 @@ const ProductDetailsClient = ({ product }: { product: any }) => {
   const [selectedColor, setSelectedColor] = React.useState<string | null>(null);
   const [openSection, setOpenSection] = React.useState('description');
 
-  const availableSizes = product.sizes || ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+  // Use only the sizes and colors provided by the product, no defaults
+  const availableSizes = product.sizes || [];
   const availableColors = product.colors || [];
 
   const handleAddToCart = () => {
@@ -167,16 +229,14 @@ const ProductDetailsClient = ({ product }: { product: any }) => {
         )}
       </div>
 
-      {/* Size Selector */}
-      {availableSizes.length > 0 && (
-        <SizeSelector
-          sizes={availableSizes}
-          selectedSize={selectedSize}
-          onSizeSelect={setSelectedSize}
-        />
-      )}
+      {/* Size Selector - only shows if sizes exist */}
+      <SizeSelector
+        sizes={availableSizes}
+        selectedSize={selectedSize}
+        onSizeSelect={setSelectedSize}
+      />
 
-      {/* Color Selector */}
+      {/* Color Selector - only shows if colors exist */}
       <ColorSelector
         colors={availableColors}
         selectedColor={selectedColor}
@@ -185,15 +245,14 @@ const ProductDetailsClient = ({ product }: { product: any }) => {
 
       {/* Action Buttons */}
       <div className="mt-8 space-y-4">
-      <AddToCartButton 
-    product={product} 
-    selectedSize={selectedSize}
-    selectedColor={selectedColor}
-    hasSizes={availableSizes.length > 0}
-    hasColors={availableColors.length > 0}
-    showBuyNow
-  />
-      
+        <AddToCartButton 
+          product={product} 
+          selectedSize={selectedSize}
+          selectedColor={selectedColor}
+          hasSizes={availableSizes.length > 0}
+          hasColors={availableColors.length > 0}
+          showBuyNow
+        />
       </div>
 
       {/* Product Details Accordion */}
