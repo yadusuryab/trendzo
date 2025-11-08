@@ -89,15 +89,14 @@ function CategorySection() {
    
       <div className="container mx-auto px-6 relative">
         {/* Section Header */}
-        <div className="text-start font-serif mb-3">
-          <div className="inline-flex items-start gap-4 mb-2">
-            <h2 className="text-4xl italic text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
-               Collections
+        <div className="text-center mb-3">
+          <div className="inline-flex items-start gap-0 mb-2">
+            <h2 className="text-4xl font-serif italic underline text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+           Explore collections.
             </h2>
           </div>
-          <p className="text-2xl italic text-foreground/60 font-light tracking-wide max-w-2xl leading-relaxed">
-            Discover our exclusive categories, meticulously curated for the discerning individual
-          </p>
+          <p className="text-sm  text-foreground/60 uppercase max-w-2xl leading-relaxed">
+          Discover what’s trending right now.       </p>
         </div>
 
         {/* Peek Carousel Container */}

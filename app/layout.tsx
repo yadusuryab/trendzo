@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Audiowide, Geist, Geist_Mono, Inter, Luxurious_Script, Michroma, Montserrat, Quantico } from "next/font/google";
+import { Audiowide, Geist, Geist_Mono, Imperial_Script, Inter, Luxurious_Script, Michroma, Montserrat, Quantico } from "next/font/google";
 import localFont from 'next/font/local';
 import "./globals.css";
 import Header from "@/components/layout/header";
@@ -22,7 +22,7 @@ const helveticaRegular = localFont({
 });
 
 // Luxurious Script from Google Fonts
-const luxuriousScript = Luxurious_Script({
+const luxuriousScript = Imperial_Script({
   subsets: ["latin"],
   weight: ["400"],
   variable: '--font-luxurious-script',
