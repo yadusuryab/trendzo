@@ -126,7 +126,7 @@ const ProductDetailsClient = ({ product }: { product: any }) => {
     {
       id: 'shipping',
       title: 'Shipping & Returns',
-      content: "Free shipping on orders over ₹2999. Delivery within 3-5 business days. Easy 30-day return policy.",
+      content: "Read our terms and policy.",
     },
   ];
 
@@ -223,7 +223,7 @@ const ProductDetailsClient = ({ product }: { product: any }) => {
       {/* Additional Info */}
       <div className="mt-8 text-center">
         <p className="text-xs text-[#666666] uppercase tracking-wider">
-          Free Shipping • 30-Day Returns • Secure Payment
+          TRENDOZ • PREMIUM • QUALITY
         </p>
       </div>
     </div>
