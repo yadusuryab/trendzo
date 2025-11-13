@@ -13,7 +13,7 @@ export type CategoryCardProps = {
 
 function CategoryCard({ name, image, slug, productCount }: CategoryCardProps) {
   return (
-    <Link href={`/category/${slug}`} className="block group">
+    <Link href={`/products?category=${slug}`} className="block group">
       <div className="bg-white h-[380px] shadow-sm overflow-hidden transition-all duration-500 hover:shadow-xl border border-gray-100 hover:border-gray-200 w-80  relative">
         
         {/* Large rectangular product image */}

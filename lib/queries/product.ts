@@ -4,9 +4,10 @@ export type Product = {
   rating: number;
   _id: string;
   name: string;
+  brand: string;
   images: { url: string; title?: string }[];
   sizes?: string[];
-  colours?: string[];
+  colors?: string[];
   features?: string[];
   description?: string;
   image: string;

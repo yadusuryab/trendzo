@@ -83,7 +83,18 @@ function Footer() {
               Trendzo
             </h2>
             {/* <Brand/> */}
+           
           </Link>
+          <div className="flex gap-1 w-full justify-center italic font-semibold">
+             <span className="text-muted-foreground">Made by</span>
+                <Link
+                  
+                  href={'https://instagram.com/getshopigo'}
+                >
+                  Shopigo.
+                </Link>
+            
+            </div>
         </div>
       </div>
 
