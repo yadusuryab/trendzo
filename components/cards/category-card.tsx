@@ -40,7 +40,7 @@ function CategoryCard({ name, image, slug, productCount }: CategoryCardProps) {
                   {name}
                 </h3>
                 <Link 
-                  href={`/category/${slug}`}
+                  href={`/products?category=${slug}`}
                   className="text-gray-200 hover:text-gray-900 text-sm font-medium underline underline-offset-4 transition-colors duration-300"
                 >
                   Shop Now
