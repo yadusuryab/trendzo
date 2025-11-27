@@ -1,51 +1,48 @@
 // components/Hero.tsx
-"use client";
-import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { buttonVariants } from "../ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+'use client';
+import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { buttonVariants } from '../ui/button';
 
-type Banner = {
-  title?: string;
-  subtitle?: string;
-  imageUrl?: string;
-  ctaText?: string;
-  ctaLink?: string;
-  isActive?: boolean;
+// Add this function to fetch banners from your API
+const getActiveBanners = async (): Promise<any[]> => {
+  try {
+    const response = await fetch('/api/banner');
+    if (!response.ok) {
+      throw new Error('Failed to fetch banners');
+    }
+    const banners = await response.json();
+    return banners;
+  } catch (error) {
+    console.error('Error fetching banners:', error);
+    return [];
+  }
 };
 
 const Hero = () => {
-  const [banners, setBanners] = useState<Banner[]>([]);
+  const [banners, setBanners] = useState<any[]>([]);
   const [currentBanner, setCurrentBanner] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchBanners = async () => {
+      setLoading(true);
       try {
-        const res = await fetch("/api/banner");
-        const bannerData = await res.json();
-
-        // If we get a single banner object, wrap it in an array
-        if (bannerData && (bannerData.title || bannerData.imageUrl)) {
-          setBanners([bannerData]);
-        } else {
-          setBanners([]);
-        }
-
-        // Small delay to ensure smooth animation
-        setTimeout(() => setIsLoaded(true), 100);
+        const activeBanners = await getActiveBanners();
+        setBanners(activeBanners);
       } catch (error) {
-        console.error("Error fetching banner:", error);
-        setBanners([]);
+        console.error('Error loading banners:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchBanners();
   }, []);
 
-  // Auto-slide functionality for multiple banners
+  // Auto-slide functionality
   useEffect(() => {
     if (banners.length <= 1) return;
 
@@ -55,6 +52,18 @@ const Hero = () => {
 
     return () => clearInterval(interval);
   }, [banners.length]);
+
+  // Handle video loading and playback
+  useEffect(() => {
+    const currentBannerData = banners[currentBanner];
+    if (currentBannerData?.mediaType === 'video' && videoRef.current) {
+      const video = videoRef.current;
+      video.load();
+      video.play().catch(error => {
+        console.log('Video autoplay failed:', error);
+      });
+    }
+  }, [currentBanner, banners]);
 
   // Parallax effect on scroll
   useEffect(() => {
@@ -66,138 +75,175 @@ const Hero = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+  };
+
   // Loading state
-  if (!banners || banners.length === 0) {
+  if (loading) {
     return (
-      <div 
-        ref={heroRef}
-        className="w-full h-full min-h-[500px] relative overflow-hidden bg-slate-700 flex items-center justify-center"
-      >
-        <div className="animate-pulse flex flex-col items-center space-y-4">
-          <div className="w-24 h-24 border-2 border-gold-500/30 border-t-gold-500 rounded-full animate-spin"></div>
+      <div className="relative h-[540px] overflow-hidden flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading banners...</p>
         </div>
       </div>
     );
   }
 
+  // If no banners from Sanity, show the original static version
+  if (!banners || banners.length === 0) {
+    return (
+      <div className="relative h-[540px] overflow-hidden">
+        {/* Parallax Background */}
+        <div 
+          ref={parallaxRef}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/hero.avif')" }}
+        />
+        {/* Fallback content */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+              Welcome to Our Store
+            </h1>
+            <p className="text-xl md:text-2xl mb-6 opacity-90 drop-shadow-md">
+              Discover amazing products
+            </p>
+            <Link
+              href="/products"
+              className={buttonVariants({ variant: 'secondary', size: 'lg' })}
+            >
+              Shop Now
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const getTextPositionClass = (position: string) => {
+    switch (position) {
+      case 'left':
+        return 'text-left mr-auto';
+      case 'right':
+        return 'text-left ml-auto';
+      default:
+        return 'text-center mx-auto';
+    }
+  };
+
+  const getJustifyClass = (position: string) => {
+    switch (position) {
+      case 'left':
+        return 'justify-start';
+      case 'right':
+        return 'justify-end';
+      default:
+        return 'justify-center';
+    }
+  };
+
   return (
-    <div 
-      ref={heroRef}
-      className="w-full h-full min-h-[500px] relative overflow-hidden"
-    >
-      {/* Multiple banners with sliding - if we have multiple banners */}
+    <div className="relative h-[540px] overflow-hidden">
+      {/* Multiple banners with sliding */}
       {banners.map((banner, index) => (
         <div
-          key={index}
-          className={`absolute inset-0 transition-all duration-1000 ease-out ${
-            index === currentBanner
-              ? "opacity-100 scale-100"
-              : "opacity-0 scale-110 pointer-events-none"
+          key={banner._id}
+          className={`absolute inset-0 transition-opacity duration-500 ${
+            index === currentBanner ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         >
-          {/* Image Background with Parallax */}
-          {banner.imageUrl && (
-            <div className="absolute inset-0">
-              {/* Parallax Background */}
-              <div 
-                ref={parallaxRef}
-                className="absolute inset-0 w-full h-full"
+          {/* Media Background from Sanity */}
+          {banner.mediaType === 'video' && banner.video?.url ? (
+            <div className="absolute inset-0 overflow-hidden">
+              <video
+                ref={index === currentBanner ? videoRef : null}
+                className="w-full h-full object-cover"
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={banner.videoPoster}
+                onLoadedData={index === currentBanner ? handleVideoLoad : undefined}
+                controls={false}
+                disablePictureInPicture
+                disableRemotePlayback
               >
-                <Image
-                  src={banner.imageUrl}
-                  alt={banner.title || "Luxury Banner"}
-                  fill
-                  sizes="100vw"
-                  priority
-                  className={`object-cover transition-all duration-1000 ease-out ${
-                    isLoaded ? "scale-100 opacity-100" : "scale-110 opacity-0"
-                  }`}
-                  quality={100}
-                  style={{
-                    objectFit: 'cover',
-                    objectPosition: 'center'
+                <source src={banner.video.url} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              {/* Fallback image if video fails to load */}
+              {!isVideoLoaded && banner.videoPoster && (
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ 
+                    backgroundImage: `url('${banner.videoPoster}')` 
                   }}
                 />
-              </div>
-
-              {/* Enhanced gradient overlays */}
+              )}
             </div>
+          ) : (
+            // Image Banner with Parallax
+            <div 
+              ref={index === currentBanner ? parallaxRef : null}
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ 
+                backgroundImage: `url('${banner.imageUrl || banner.image?.asset?.url}')`,
+                backgroundAttachment: 'fixed'
+              }}
+            />
           )}
 
-          {/* Text Content - Positioned to be covered by bottom content */}
-          {(banner.title || banner.subtitle || banner.ctaText) && (
-            <div
-              className={`absolute inset-0 flex flex-col items-center justify-center px-6 lg:px-12 text-center transition-all duration-1000 ease-out ${
-                isLoaded
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              }`}
-            >
-              {/* Content container with refined styling */}
-              <div className="max-w-4xl mx-auto text-white">
-                {banner.title && (
-                  <h1 className="text-2xl lg:text-5xl font-light tracking-wide drop-shadow-2xl font-serif italic">
-                    {banner.title.split("").map((letter, index) => (
-                      <span
-                        key={index}
-                        className="inline-block transition-all duration-500 hover:scale-110 hover:text-gold-300 cursor-default"
-                        style={{ transitionDelay: `${index * 50}ms` }}
-                      >
-                        {letter}
-                      </span>
-                    ))}
-                  </h1>
-                )}
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/30"></div>
 
-                {banner.subtitle && (
-                  <p className="text-sm lg:text-2xl font-light tracking-wider drop-shadow-lg uppercase text-gray-200 max-w-2xl mx-auto leading-relaxed mt-4">
-                    {banner.subtitle}
-                  </p>
-                )}
-
-                {banner.ctaText && banner.ctaLink && (
-                  <div className="pt-6">
-                    <Link
-                      href={banner.ctaLink}
-                      className="group/btn inline-flex items-center gap-3 px-8 py-4 bg-transparent border border-gold-500 text-gold-300 font-light tracking-widest uppercase text-xs transition-all duration-500 hover:bg-gold-500 hover:text-black hover:shadow-2xl hover:scale-105 relative overflow-hidden"
-                    >
-                      {/* Button background effect */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-gold-500/10 to-gold-300/10 transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
-
-                      <span className="relative z-10">{banner.ctaText}</span>
-                      <ArrowRight className="w-4 h-4 relative z-10 transform group-hover/btn:translate-x-1 transition-transform duration-300" />
-
-                      {/* Button corners */}
-                      
-                    </Link>
-                  </div>
-                )}
-              </div>
+          {/* Text Content from Sanity */}
+          <div className={`absolute inset-0 h-full flex items-center ${getJustifyClass(banner.textPosition || 'center')} container mx-auto px-4`}>
+            <div className={`max-w-2xl ${
+              banner.textColor === 'light' ? 'text-white' : 'text-gray-900'
+            } ${getTextPositionClass(banner.textPosition || 'center')}`}>
+              {banner.title && (
+                <h1 className="text-4xl md:text-6xl  mb-2 font-serif drop-shadow-lg">
+                  {banner.title}
+                </h1>
+              )}
+              {banner.subtitle && (
+                <p className="text-lg md:text-2xl uppercase mb-6 opacity-75 drop-shadow-md">
+                  {banner.subtitle}
+                </p>
+              )}
+              {(banner.buttonText || banner.ctaText) && (banner.buttonLink || banner.ctaLink) && (
+                <Link
+                  href={banner.buttonLink || banner.ctaLink}
+                  className={buttonVariants({ 
+                    variant: banner.textColor === 'light' ? 'secondary' : 'default',
+                    size: 'lg'
+                  })}
+                >
+                  {banner.buttonText || banner.ctaText}
+                </Link>
+              )}
             </div>
-          )}
-
-          {/* Luxury pattern overlay */}
+          </div>
         </div>
       ))}
 
-      {/* Bottom Content Overlay - This covers the bottom part of the hero */}
-    
-
       {/* Navigation Dots - Only show if multiple banners */}
       {banners.length > 1 && (
-        <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
           {banners.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentBanner(index)}
-              className={`w-5 h-[0.5] rounded-full transition-all border-2 ${
-                index === currentBanner
-                  ? "bg-white border-white"
-                  : "bg-transparent border-white/50 hover:border-white"
+              className={`w-10 h-1 rounded-full transition-all ${
+                index === currentBanner 
+                  ? 'bg-white' 
+                  : 'bg-white/50 hover:bg-white/70'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
