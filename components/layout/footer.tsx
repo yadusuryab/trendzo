@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Instagram } from "lucide-react";
 import { Button } from "../ui/button";
 import Brand from "../utils/brand";
+import Image from "next/image";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -85,16 +86,7 @@ function Footer() {
             {/* <Brand/> */}
            
           </Link>
-          <div className="flex gap-1 w-full justify-center italic font-semibold">
-             <span className="text-muted-foreground">Made by</span>
-                <Link
-                  
-                  href={'https://instagram.com/getshopigo'}
-                >
-                  Shopigo.
-                </Link>
-            
-            </div>
+         
         </div>
       </div>
 
@@ -174,6 +166,15 @@ function Footer() {
               </div>
             </div>
           </div>
+          <div className="flex  w-full justify-center italic font-semibold">
+                <Link
+                  
+                  href={'https://instagram.com/getshopigo'}
+                >
+                  <Image src={'/shopigo.avif'} width={120} height={120} alt="Shopigo Logo"/>.
+                </Link>
+            
+            </div>
         </div>
       </div>
 
