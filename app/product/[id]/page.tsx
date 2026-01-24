@@ -1,7 +1,5 @@
 import React from "react";
-import ImageCarousel_Basic, {
-  CarouselImages,
-} from "@/components/commerce-ui/image-carousel-basic";
+import MediaCarousel from "@/components/product/MediaCarousel"; // Updated
 import PriceFormat_Sale from "@/components/commerce-ui/price-format-sale";
 import ProductReviewSection from "@/components/sections/reviews";
 import { Button } from "@/components/ui/button";
@@ -10,8 +8,6 @@ import ProductBuySection from "@/components/sections/product-add-to-cart";
 import StarRating_Basic from "@/components/commerce-ui/star-rating-basic";
 import { Metadata, ResolvingMetadata } from "next";
 import ProductDetailsClient from "@/components/product/ProductDetailsClient";
-
-// Client components (these will have "use client" directive)
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -25,7 +21,7 @@ export async function generateMetadata(
   
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${id}`, {
-      next: { revalidate: 3600 } // Cache for 1 hour
+      next: { revalidate: 3600 }
     });
     
     if (!response.ok) {
@@ -38,7 +34,9 @@ export async function generateMetadata(
     const product = await response.json();
 
     const previousImages = (await parent).openGraph?.images || [];
-    const productImage = product.images?.[0]?.url || '';
+    // Get first image from media array
+    const firstMedia = product.media?.find((item: any) => item._type === 'image');
+    const productImage = firstMedia?.asset?.url || '';
 
     return {
       title: `${product.name} | ${product.category?.title || 'Product'} | ${process.env.NEXT_PUBLIC_APP_NAME}`,
@@ -95,7 +93,7 @@ const ProductPage = async ({ params }: Props) => {
   let product = null;
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${id}`, {
-      next: { revalidate: 3600 } // Cache for 1 hour
+      next: { revalidate: 3600 }
     });
     
     if (response.ok) {
@@ -120,7 +118,7 @@ const ProductPage = async ({ params }: Props) => {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    image: product.images?.[0]?.url || "",
+    image: product.media?.find((m: any) => m._type === 'image')?.asset?.url || "",
     description: product.description,
     sku: product._id,
     mpn: product._id,
@@ -163,14 +161,13 @@ const ProductPage = async ({ params }: Props) => {
 
       <div className="px-4 md:px-20 lg:px-32 pb-16">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Left Column - Image Carousel */}
+          {/* Left Column - Media Carousel */}
           <div className="lg:pr-8">
             <div className="group overflow-hidden bg-[#f4f4f4]">
-              <ImageCarousel_Basic
-                images={product.images}
+              <MediaCarousel
+                media={product.media || []}
                 imageFit="cover"
-                className="transition-transform duration-500 group-hover:scale-105"
-                classNameImage="object-cover w-full h-full"
+                className="transition-transform object-cover w-full h-full duration-500"
               />
             </div>
           </div>
